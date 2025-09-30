@@ -42,9 +42,17 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
               </div>
             </div>
 
-            <div className="prose prose-sm prose-stone">
+            <div className="prose prose-sm">
               <MDXRemote
                 source={markdown}
+                components={{
+                  p: ({ children }) => <p>{children}</p>,
+                  blockquote: ({ children }) => (
+                    <blockquote className="border-l-4 border-primary/30 pl-4 italic bg-muted/30 py-2 my-4 rounded-r">
+                      {children}
+                    </blockquote>
+                  ),
+                }}
                 options={{
                   mdxOptions: {
                     remarkPlugins: [remarkGfm],

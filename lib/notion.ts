@@ -84,7 +84,7 @@ export const getPostBySlug = async (slug: string): Promise<{ markdown: string; p
   };
 };
 
-export const getPublishedPosts = async (tag?: string): Promise<Post[]> => {
+export const getPublishedPosts = async (tag?: string, sort?: string): Promise<Post[]> => {
   const response = await notion.dataSources.query({
     data_source_id: process.env.NOTION_DATASOURCE_ID!,
     filter: {
@@ -113,8 +113,8 @@ export const getPublishedPosts = async (tag?: string): Promise<Post[]> => {
     },
     sorts: [
       {
-        property: 'Modified Date',
-        direction: 'descending',
+        property: 'Date',
+        direction: sort === 'latest' ? 'descending' : 'ascending',
       },
     ],
   });
