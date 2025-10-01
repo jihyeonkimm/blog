@@ -25,7 +25,9 @@ export default async function Home({ searchParams }: HomeProps) {
         <div className="space-y-8">
           {/* 섹션 제목 */}
           <div className="flex items-center justify-between">
-            <h2 className="text-3xl font-bold tracking-tight">블로그 목록</h2>
+            <h2 className="text-3xl font-bold tracking-tight">
+              {selectedTag ? selectedTag : '전체'}
+            </h2>
             <SortSelect />
           </div>
 

@@ -13,8 +13,8 @@ interface PostCardProps {
 
 export function PostCard({ post, isFirst }: PostCardProps) {
   return (
-    <Card className="group bg-card/50 overflow-hidden backdrop-blur-sm transition-all duration-300 flex-row justify-between grow">
-      <CardContent className="p-6">
+    <Card className="group bg-card/50 overflow-hidden backdrop-blur-sm transition-all duration-300 flex-row justify-between">
+      <CardContent className="px-0 py-3 grow">
         <div className="mb-4 flex flex-wrap gap-2">
           {post.tags?.map((tag) => (
             <Badge

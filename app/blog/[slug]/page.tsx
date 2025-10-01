@@ -6,6 +6,8 @@ import { MDXRemote } from 'next-mdx-remote/rsc';
 import remarkGfm from 'remark-gfm';
 import rehypeSanitize from 'rehype-sanitize';
 import rehypePrettyCode from 'rehype-pretty-code';
+import rehypeRaw from 'rehype-raw';
+import Image, { ImageProps } from 'next/image';
 
 interface BlogPostPageProps {
   params: Promise<{ slug: string }>;
@@ -46,7 +48,20 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
               <MDXRemote
                 source={markdown}
                 components={{
-                  p: ({ children }) => <p>{children}</p>,
+                  p: ({ children }) => {
+                    return <p className="not-prose relative leading-relaxed">{children}</p>;
+                  },
+                  br: () => <br className="my-2" />,
+                  img: (props) => (
+                    <Image
+                      {...(props as ImageProps)}
+                      width={1200}
+                      height={600}
+                      alt={props.alt || ''}
+                      style={{ width: '100%', height: 'auto', position: 'relative' }}
+                      className="my-6"
+                    />
+                  ),
                   blockquote: ({ children }) => (
                     <blockquote className="border-l-4 border-primary/30 pl-4 italic bg-muted/30 py-2 my-4 rounded-r">
                       {children}
@@ -56,7 +71,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
                 options={{
                   mdxOptions: {
                     remarkPlugins: [remarkGfm],
-                    rehypePlugins: [rehypeSanitize, rehypePrettyCode],
+                    rehypePlugins: [rehypeSanitize, rehypePrettyCode, rehypeRaw],
                   },
                 }}
               />

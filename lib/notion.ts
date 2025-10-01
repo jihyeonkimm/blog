@@ -7,7 +7,13 @@ export const notion = new Client({
   auth: process.env.NOTION_TOKEN,
 });
 
-const n2m = new NotionToMarkdown({ notionClient: notion });
+const n2m = new NotionToMarkdown({
+  notionClient: notion,
+  config: {
+    parseChildPages: false,
+    convertImagesToBase64: false,
+  },
+});
 
 function getPostMetadata(page: PageObjectResponse): Post {
   const { properties } = page;
@@ -30,7 +36,7 @@ function getPostMetadata(page: PageObjectResponse): Post {
     title: properties.Title.type === 'title' ? properties.Title.title[0].plain_text : '',
     description:
       properties.Description.type === 'rich_text'
-        ? properties.Description.rich_text[0].plain_text
+        ? properties.Description.rich_text[0]?.plain_text
         : '',
     coverImage: getCoverImage(page.cover),
     tags:
@@ -78,8 +84,11 @@ export const getPostBySlug = async (slug: string): Promise<{ markdown: string; p
   const mdBlocks = await n2m.pageToMarkdown(response.results[0].id);
   const { parent } = n2m.toMarkdownString(mdBlocks);
 
+  // MDX에서 중괄호를 문자로 인식하도록 이스케이프 처리하고 줄바꿈 개선
+  const escapedMarkdown = parent.replace(/\{/g, '\\{').replace(/\}/g, '\\}');
+
   return {
-    markdown: parent,
+    markdown: escapedMarkdown,
     post: getPostMetadata(response.results[0] as PageObjectResponse),
   };
 };
