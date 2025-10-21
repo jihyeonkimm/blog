@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import './globals.css';
 import Header from '@/components/layouts/Header';
 import Footer from '@/components/layouts/Footer';
+import Providers from './providers';
 
 export const metadata: Metadata = {
   title: 'Create Next App',
@@ -24,14 +25,16 @@ export default function RootLayout({
         />
       </head>
       <body className="font-pretendard antialiased">
-        <div className="flex min-h-screen flex-col">
-          <Header />
+        <Providers>
+          <div className="flex min-h-screen flex-col">
+            <Header />
 
-          {/* Main 영역 */}
-          <main className="flex-1">{children}</main>
+            {/* Main 영역 */}
+            <main className="flex-1">{children}</main>
 
-          <Footer />
-        </div>
+            <Footer />
+          </div>
+        </Providers>
       </body>
     </html>
   );

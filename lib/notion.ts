@@ -93,7 +93,25 @@ export const getPostBySlug = async (slug: string): Promise<{ markdown: string; p
   };
 };
 
-export const getPublishedPosts = async (tag?: string, sort?: string): Promise<Post[]> => {
+interface getPublishedPostParams {
+  tag?: string;
+  sort?: string;
+  pageSize?: number;
+  startCursor?: string;
+}
+
+export interface getPublishedPostResponse {
+  posts: Post[];
+  hasMore: boolean;
+  nextCursor: string | null;
+}
+
+export const getPublishedPosts = async ({
+  tag = '전체',
+  sort = 'latest',
+  pageSize = 2,
+  startCursor,
+}: getPublishedPostParams = {}): Promise<getPublishedPostResponse> => {
   const response = await notion.dataSources.query({
     data_source_id: process.env.NOTION_DATASOURCE_ID!,
     filter: {
@@ -126,15 +144,25 @@ export const getPublishedPosts = async (tag?: string, sort?: string): Promise<Po
         direction: sort === 'latest' ? 'descending' : 'ascending',
       },
     ],
+    page_size: pageSize,
+    start_cursor: startCursor,
   });
 
-  return response.results
+  console.log(response);
+
+  const posts = response.results
     .filter((page): page is PageObjectResponse => 'properties' in page)
     .map(getPostMetadata);
+
+  return {
+    posts,
+    hasMore: response.has_more,
+    nextCursor: response.next_cursor,
+  };
 };
 
 export const getTags = async (): Promise<TagFilterItem[]> => {
-  const posts = await getPublishedPosts();
+  const { posts } = await getPublishedPosts({ pageSize: 100 });
 
   const tagCounts = posts.reduce(
     (acc, post) => {
