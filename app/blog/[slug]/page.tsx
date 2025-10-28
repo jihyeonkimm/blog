@@ -8,6 +8,7 @@ import rehypeSanitize from 'rehype-sanitize';
 import rehypePrettyCode from 'rehype-pretty-code';
 import rehypeRaw from 'rehype-raw';
 import Image, { ImageProps } from 'next/image';
+import GiscusComments from '@/components/comments/GiscusComments';
 
 interface BlogPostPageProps {
   params: Promise<{ slug: string }>;
@@ -75,6 +76,8 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
                   },
                 }}
               />
+
+              <GiscusComments />
             </div>
           </div>
         </section>
