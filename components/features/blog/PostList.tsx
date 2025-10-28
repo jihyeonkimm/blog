@@ -3,9 +3,11 @@
 import Link from 'next/link';
 import { PostCard } from './PostCard';
 import { getPublishedPostResponse } from '@/lib/notion';
-import { use } from 'react';
+import { use, useEffect } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { useInfiniteQuery } from '@tanstack/react-query';
+import { useInView } from 'react-intersection-observer';
+import { Loader2 } from 'lucide-react';
 
 interface PostListProps {
   postsPromise: Promise<getPublishedPostResponse>;
@@ -43,13 +45,24 @@ export default function PostList({ postsPromise }: PostListProps) {
     },
   });
 
-  const handleLoadMore = () => {
-    if (hasNextPage && !isFetchingNextPage) {
-      fetchNextPage();
-    }
-  };
+  // const handleLoadMore = () => {
+  //   if (hasNextPage && !isFetchingNextPage) {
+  //     fetchNextPage();
+  //   }
+  // };
 
   const allPosts = data?.pages.flatMap((page) => page.posts) ?? [];
+
+  const { ref, inView } = useInView({
+    threshold: 1,
+  });
+
+  useEffect(() => {
+    console.log(inView);
+    if (inView && hasNextPage && !isFetchingNextPage) {
+      fetchNextPage();
+    }
+  }, [inView, hasNextPage, isFetchingNextPage]);
 
   return (
     <div className="space-y-6">
@@ -60,7 +73,13 @@ export default function PostList({ postsPromise }: PostListProps) {
           </Link>
         ))}
       </div>
-      {hasNextPage && (
+      {hasNextPage && !isFetchingNextPage && <div ref={ref} className="h-4" />}
+      {isFetchingNextPage && (
+        <div className="flex justify-center">
+          <Loader2 className="text-muted-foreground h-4 w-4 animate-spin" />
+        </div>
+      )}
+      {/* {hasNextPage && (
         <div>
           <button
             className="btn btn-outline btn-sm"
@@ -70,7 +89,7 @@ export default function PostList({ postsPromise }: PostListProps) {
             {isFetchingNextPage ? '로딩중' : '더보기'}
           </button>
         </div>
-      )}
+      )} */}
     </div>
   );
 }
