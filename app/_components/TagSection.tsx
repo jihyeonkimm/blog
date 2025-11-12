@@ -13,10 +13,7 @@ interface TagSectionProps {
 const TagSection = ({ tags, selectedTag }: TagSectionProps) => {
   return (
     <Card>
-      {/* <CardHeader>
-        <CardTitle>태그 목록</CardTitle>
-      </CardHeader> */}
-      <CardContent>
+      <CardContent className="lg:px-6 px-0">
         <div className="flex flex-col gap-3">
           {tags.map((tag) => (
             <Link href={`?tag=${tag.name}`} key={tag.name}>

@@ -1,7 +1,5 @@
-import { Badge } from '@/components/ui/badge';
 import { formatDate } from '@/lib/date';
 import { getPostBySlug } from '@/lib/notion';
-import { CalendarDays, User } from 'lucide-react';
 import { MDXRemote } from 'next-mdx-remote/rsc';
 import remarkGfm from 'remark-gfm';
 import rehypeSanitize from 'rehype-sanitize';
@@ -20,32 +18,36 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
 
   return (
     <div className="container py-12">
-      <div className="grid grid-cols-[240px_1fr_240px] gap-8">
-        <aside />
+      <div className="max-w-[820px] mx-auto px-0 md:px-4">
         <section>
           <div className="space-y-4">
-            <div className="space-y-2">
-              <div className="flex gap-2">
+            <div className="flex flex-col items-center space-y-2">
+              <div className="flex mb-4">
                 {post.tags?.map((tag) => (
-                  <Badge key={tag}>{tag}</Badge>
+                  <p className="text-xs text-(--primary) font-bold" key={tag}>
+                    {tag}
+                  </p>
                 ))}
               </div>
-              <h1 className="text-4xl font-bold">{post.title}</h1>
+              <h1 className="text-2xl md:text-4xl font-bold text-center">{post.title}</h1>
             </div>
 
             {/* 메타 정보 */}
-            <div className="text-muted-foreground flex gap-4 text-sm">
+            <div className="text-muted-foreground flex justify-center gap-2 text-sm mb-14">
               <div className="flex items-center gap-1">
-                <User className="h-4 w-4" />
+                {/* <User className="h-4 w-4" /> */}
                 <span>{post.author}</span>
               </div>
               <div className="flex items-center gap-1">
-                <CalendarDays className="h-4 w-4" />
+                <span>|</span>
+              </div>
+              <div className="flex items-center gap-1">
+                {/* <CalendarDays className="h-4 w-4" /> */}
                 <span>{formatDate(post.date)}</span>
               </div>
             </div>
 
-            <div className="prose prose-sm">
+            <div className="prose prose-sm prose-stone w-full max-w-full">
               <MDXRemote
                 source={markdown}
                 components={{

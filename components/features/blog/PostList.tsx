@@ -58,7 +58,6 @@ export default function PostList({ postsPromise }: PostListProps) {
   });
 
   useEffect(() => {
-    console.log(inView);
     if (inView && hasNextPage && !isFetchingNextPage) {
       fetchNextPage();
     }

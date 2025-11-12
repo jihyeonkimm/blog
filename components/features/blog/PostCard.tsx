@@ -13,9 +13,9 @@ interface PostCardProps {
 
 export function PostCard({ post, isFirst }: PostCardProps) {
   return (
-    <Card className="group bg-card/50 overflow-hidden backdrop-blur-sm transition-all duration-300 flex-row justify-between">
+    <Card className="group bg-card/50 overflow-hidden backdrop-blur-sm transition-all duration-300 flex-row justify-between items-center">
       <CardContent className="px-0 py-3 grow">
-        <div className="mb-4 flex flex-wrap gap-2">
+        <div className="mb-2 md:mb-4 flex flex-wrap gap-2">
           {post.tags?.map((tag) => (
             <Badge
               key={tag}
@@ -26,15 +26,15 @@ export function PostCard({ post, isFirst }: PostCardProps) {
             </Badge>
           ))}
         </div>
-        <h2 className="group-hover:text-primary mb-2 text-xl font-bold tracking-tight transition-colors">
+        <h2 className="group-hover:text-primary mb-2 text-md md:text-xl font-bold tracking-tight transition-colors">
           {post.title}
         </h2>
         {post.description && (
-          <p className="text-muted-foreground mt-2 line-clamp-2 leading-relaxed">
+          <p className="text-muted-foreground mt-2 text-xs md:text-base line-clamp-2 leading-relaxed">
             {post.description}
           </p>
         )}
-        <div className="text-muted-foreground mt-6 flex items-center gap-x-4 text-sm">
+        <div className="text-muted-foreground mt-3 md:mt-6 flex items-center gap-x-4 text-sm">
           {/* {post.author && (
             <div className="flex items-center gap-1.5">
               <User className="h-4 w-4" />
@@ -44,13 +44,13 @@ export function PostCard({ post, isFirst }: PostCardProps) {
           {post.date && (
             <div className="flex items-center gap-1.5">
               {/* <Calendar className="h-4 w-4" /> */}
-              <time>{formatDate(post.date)}</time>
+              <time className="text-xs">{formatDate(post.date)}</time>
             </div>
           )}
         </div>
       </CardContent>
       {post.coverImage && (
-        <div className="relative shrink-0 w-40 overflow-hidden">
+        <div className="relative shrink-0 md:w-40 w-30 overflow-hidden rounded-md aspect-3/2">
           <div className="from-background/20 absolute inset-0 z-10 bg-gradient-to-t to-transparent" />
           <Image
             src={post.coverImage}

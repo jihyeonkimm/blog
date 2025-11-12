@@ -109,7 +109,7 @@ export interface getPublishedPostResponse {
 export const getPublishedPosts = async ({
   tag = '전체',
   sort = 'latest',
-  pageSize = 2,
+  pageSize = 8,
   startCursor,
 }: getPublishedPostParams = {}): Promise<getPublishedPostResponse> => {
   const response = await notion.dataSources.query({
@@ -147,8 +147,6 @@ export const getPublishedPosts = async ({
     page_size: pageSize,
     start_cursor: startCursor,
   });
-
-  console.log(response);
 
   const posts = response.results
     .filter((page): page is PageObjectResponse => 'properties' in page)

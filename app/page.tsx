@@ -16,12 +16,12 @@ export default async function Home({ searchParams }: HomeProps) {
 
   return (
     <div className="container py-8">
-      <div className="grid grid-cols-[200px_1fr_220px] gap-6">
+      <div className="grid lg:grid-cols-[200px_1fr_220px] gap-6">
         {/* 좌측 사이드바 */}
-        <aside>
+        <aside className="lg:order-1 order-2">
           <TagSection tags={tags} selectedTag={selectedTag} />
         </aside>
-        <div className="space-y-8">
+        <div className="lg:order-2 order-1 space-y-8">
           {/* 섹션 제목 */}
           <div className="flex items-center justify-between">
             <h2 className="text-3xl font-bold tracking-tight">
