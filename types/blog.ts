@@ -14,4 +14,5 @@ export interface Post {
   date?: string;
   modifiedDate?: string;
   slug: string;
+  category?: string;
 }

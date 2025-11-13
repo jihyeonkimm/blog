@@ -11,9 +11,10 @@ import { Loader2 } from 'lucide-react';
 
 interface PostListProps {
   postsPromise: Promise<getPublishedPostResponse>;
+  category?: string;
 }
 
-export default function PostList({ postsPromise }: PostListProps) {
+export default function PostList({ postsPromise, category }: PostListProps) {
   const initialData = use(postsPromise);
   const searchParams = useSearchParams();
   const tag = searchParams.get('tag');
@@ -25,6 +26,7 @@ export default function PostList({ postsPromise }: PostListProps) {
     const params = new URLSearchParams();
     if (tag) params.set('tag', tag);
     if (sort) params.set('sort', sort);
+    if (category) params.set('category', category);
     if (pageParam) params.set('startCursor', pageParam);
 
     const response = await fetch(`/api/posts?${params.toString()}`);
@@ -35,7 +37,7 @@ export default function PostList({ postsPromise }: PostListProps) {
   };
 
   const { data, fetchNextPage, hasNextPage, isFetchingNextPage } = useInfiniteQuery({
-    queryKey: ['posts', tag, sort], // 쿼리를 고유하게 식별하는 키. tag, sort가 변경되면 새로운 쿼리로 인식하여 데이터를 다시 fetch
+    queryKey: ['posts', tag, sort, category], // 쿼리를 고유하게 식별하는 키. tag, sort, category가 변경되면 새로운 쿼리로 인식하여 데이터를 다시 fetch
     queryFn: fetchPosts, // 실제 데이터를 가져오는 함수
     initialPageParam: undefined, // 첫 페이지를 fetch할 때 사용할 pageParam. undefined면 첫 페이지부터 시작
     getNextPageParam: (lastPage) => lastPage.nextCursor,
@@ -66,11 +68,17 @@ export default function PostList({ postsPromise }: PostListProps) {
   return (
     <div className="space-y-6">
       <div className="grid gap-4">
-        {allPosts.map((post, index) => (
-          <Link href={`/blog/${post.slug}`} key={post.id}>
-            <PostCard post={post} isFirst={index === 0} />
-          </Link>
-        ))}
+        {allPosts.length > 0 ? (
+          allPosts.map((post, index) => (
+            <Link href={`/blog/${post.slug}`} key={post.id}>
+              <PostCard post={post} isFirst={index === 0} />
+            </Link>
+          ))
+        ) : (
+          <div className="flex flex-col justify-center items-center my-30">
+            <p className="text-lg tracking-tight">아직 등록된 글이 없어요 😇</p>
+          </div>
+        )}
       </div>
       {hasNextPage && !isFetchingNextPage && <div ref={ref} className="h-4" />}
       {isFetchingNextPage && (

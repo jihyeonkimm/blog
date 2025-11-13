@@ -57,6 +57,10 @@ function getPostMetadata(page: PageObjectResponse): Post {
       properties.Slug.type === 'rich_text'
         ? (properties.Slug.rich_text[0]?.plain_text ?? page.id)
         : page.id,
+    category:
+      properties.Category?.type === 'select' && properties.Category.select
+        ? properties.Category.select.name
+        : '',
   };
 }
 
@@ -98,6 +102,7 @@ interface getPublishedPostParams {
   sort?: string;
   pageSize?: number;
   startCursor?: string;
+  category?: string;
 }
 
 export interface getPublishedPostResponse {
@@ -111,6 +116,7 @@ export const getPublishedPosts = async ({
   sort = 'latest',
   pageSize = 8,
   startCursor,
+  category,
 }: getPublishedPostParams = {}): Promise<getPublishedPostResponse> => {
   const response = await notion.dataSources.query({
     data_source_id: process.env.NOTION_DATASOURCE_ID!,
@@ -132,6 +138,16 @@ export const getPublishedPosts = async ({
                 property: 'Tags',
                 multi_select: {
                   contains: tag,
+                },
+              },
+            ]
+          : []),
+        ...(category
+          ? [
+              {
+                property: 'Category',
+                select: {
+                  equals: category,
                 },
               },
             ]

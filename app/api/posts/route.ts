@@ -8,12 +8,14 @@ export async function GET(request: NextRequest) {
   const sort = searchParams.get('sort') || undefined;
   const pageSize = Number(searchParams.get('pageSize')) || undefined;
   const startCursor = searchParams.get('startCursor') || undefined;
+  const category = searchParams.get('category') || undefined;
 
   const response = await getPublishedPosts({
     tag,
     sort,
     pageSize,
     startCursor,
+    category,
   });
 
   return NextResponse.json(response);

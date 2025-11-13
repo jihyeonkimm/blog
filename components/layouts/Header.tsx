@@ -7,17 +7,17 @@ export default function Header() {
         <Link href="/" className="text-xl font-semibold">
           <span className="font-bold">jhkim-blog</span>
         </Link>
-        {/* <nav className="ml-auto flex items-center gap-4">
-          <Link href="#" className="hover:text-primary font-medium">
+        <nav className="ml-auto flex items-center gap-4">
+          {/* <Link href="#" className="hover:text-primary font-medium">
             홈
+          </Link> */}
+          <Link href="/dev" className="hover:text-primary font-medium">
+            dev
           </Link>
-          <Link href="/blog" className="hover:text-primary font-medium">
-            블로그
+          <Link href="/life" className="hover:text-primary font-medium">
+            life
           </Link>
-          <Link href="/about" className="hover:text-primary font-medium">
-            소개
-          </Link>
-        </nav> */}
+        </nav>
       </div>
     </header>
   );

@@ -16,7 +16,7 @@ export default async function Home({ searchParams }: HomeProps) {
 
   return (
     <div className="container py-8">
-      <div className="grid lg:grid-cols-[200px_1fr_220px] gap-6">
+      <div className="grid lg:grid-cols-[200px_1fr_0px] gap-6">
         {/* 좌측 사이드바 */}
         <aside className="lg:order-1 order-2">
           <TagSection tags={tags} selectedTag={selectedTag} />
