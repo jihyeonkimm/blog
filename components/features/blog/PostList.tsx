@@ -70,7 +70,7 @@ export default function PostList({ postsPromise, category }: PostListProps) {
       <div className="grid gap-4">
         {allPosts.length > 0 ? (
           allPosts.map((post, index) => (
-            <Link href={`/blog/${post.slug}`} key={post.id}>
+            <Link href={`/${post.category || 'blog'}/${post.slug}`} key={post.id}>
               <PostCard post={post} isFirst={index === 0} />
             </Link>
           ))
