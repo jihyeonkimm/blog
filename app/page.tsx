@@ -2,10 +2,20 @@ import TagSection from '@/app/_components/TagSection';
 import { getPublishedPosts, getTags } from '@/lib/notion';
 import SortSelect from './_components/form/SortSelect';
 import PostList from '@/components/features/blog/PostList';
+import { Metadata } from 'next';
 
 interface HomeProps {
   searchParams: Promise<{ tag?: string; sort?: string }>;
 }
+
+export const metadata: Metadata = {
+  title: 'Jihyeon Kim Blog',
+  description:
+    '프론트엔드 개발자의 기술 블로그입니다. 웹 개발, 자바스크립트, 리액트, Next.js 등에 관한 다양한 주제를 다룹니다.',
+  alternates: {
+    canonical: '/',
+  },
+};
 
 export default async function Home({ searchParams }: HomeProps) {
   const { tag, sort } = await searchParams;

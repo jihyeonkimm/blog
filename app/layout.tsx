@@ -5,19 +5,43 @@ import Footer from '@/components/layouts/Footer';
 import Providers from './providers';
 
 export const metadata: Metadata = {
-  title: 'jhkim blog',
-  description: 'jhkim blog',
+  title: {
+    template: '%s | Jihyeon Kim Blog',
+    default: 'Jihyeon Kim Blog',
+  },
+  description:
+    '프론트엔드 개발자의 기술 블로그입니다. 웹 개발, 자바스크립트, 리액트, Next.js 등에 관한 다양한 주제를 다룹니다.',
+  keywords: [
+    '프론트엔드',
+    '웹개발',
+    '개발블로그',
+    '리액트',
+    'React',
+    'Next.js',
+    'JavaScript',
+    'React Native',
+    'TypeScript',
+  ],
+  formatDetection: {
+    email: false,
+    telephone: false,
+    address: false,
+  },
+  metadataBase: new URL(`${process.env.NEXT_PUBLIC_SITE_URL}`),
+  alternates: {
+    canonical: '/',
+  },
   openGraph: {
-    title: 'jhkim blog',
-    description: 'jhkim blog',
+    title: 'Jihyeon Kim Blog',
+    description: 'Jihyeon Kim Blog',
     url: 'https://jhkim-work.com',
-    siteName: 'jhkim blog',
+    siteName: 'Jihyeon Kim Blog',
     images: [
       {
         url: '/assets/images/og-image.png',
         width: 1200,
         height: 630,
-        alt: 'Blog preview image',
+        alt: 'Blog OpenGraph Image',
       },
     ],
     locale: 'ko_KR',

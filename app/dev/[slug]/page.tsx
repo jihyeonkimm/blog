@@ -7,9 +7,45 @@ import rehypePrettyCode from 'rehype-pretty-code';
 import rehypeRaw from 'rehype-raw';
 import Image, { ImageProps } from 'next/image';
 import GiscusComments from '@/components/comments/GiscusComments';
+import { Metadata } from 'next';
 
 interface BlogPostPageProps {
   params: Promise<{ slug: string }>;
+}
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}): Promise<Metadata> {
+  const { slug } = await params;
+  const { post } = await getPostBySlug(slug);
+
+  if (!post) {
+    return {
+      title: '포스트를 찾을 수 없습니다',
+      description: '요청하신 블로그 포스트를 찾을 수 없습니다.',
+    };
+  }
+
+  return {
+    title: post.title,
+    description: post.description || `${post.title} - Jihyeon Kim Blog`,
+    keywords: post.tags,
+    alternates: {
+      canonical: `/dev/${post.slug}`,
+    },
+    openGraph: {
+      title: post.title,
+      description: post.description,
+      url: `/dev/${post.slug}`,
+      type: 'article',
+      publishedTime: post.date,
+      modifiedTime: post.modifiedDate,
+      authors: post.author || 'JH',
+      tags: post.tags,
+    },
+  };
 }
 
 export default async function BlogPostPage({ params }: BlogPostPageProps) {
