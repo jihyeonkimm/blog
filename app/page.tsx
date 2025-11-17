@@ -15,16 +15,16 @@ export default async function Home({ searchParams }: HomeProps) {
   const tags = await getTags();
 
   return (
-    <div className="container py-8">
-      <div className="grid lg:grid-cols-[200px_1fr_0px] gap-6">
+    <div className="container lg:px-4 px-0! lg:py-8 py-4">
+      <div className="relative grid lg:grid-cols-[220px_1fr_0px] gap-6">
         {/* 좌측 사이드바 */}
-        <aside className="lg:order-1 order-2">
+        <aside className="lg:static sticky lg:top-auto top-14.25 order-1 max-w-full overflow-x-hidden overflow-y-visible z-1">
           <TagSection tags={tags} selectedTag={selectedTag} />
         </aside>
-        <div className="lg:order-2 order-1 space-y-8">
+        <div className="order-2 space-y-8 lg:px-0 px-4">
           {/* 섹션 제목 */}
-          <div className="flex items-center justify-between">
-            <h2 className="text-3xl font-bold tracking-tight">
+          <div className="flex items-center justify-between mb-2">
+            <h2 className="lg:text-3xl text-2xl font-bold tracking-tight">
               {selectedTag ? selectedTag : '전체'}
             </h2>
             <SortSelect />

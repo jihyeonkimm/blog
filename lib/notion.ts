@@ -88,8 +88,16 @@ export const getPostBySlug = async (slug: string): Promise<{ markdown: string; p
   const mdBlocks = await n2m.pageToMarkdown(response.results[0].id);
   const { parent } = n2m.toMarkdownString(mdBlocks);
 
-  // MDX에서 중괄호를 문자로 인식하도록 이스케이프 처리하고 줄바꿈 개선
-  const escapedMarkdown = parent.replace(/\{/g, '\\{').replace(/\}/g, '\\}');
+  // 코드 블록 외부의 중괄호만 이스케이프 처리
+  const escapedMarkdown = parent
+    .split(/(```[\s\S]*?```|`[^`]+`)/g) // 코드 블록과 인라인 코드를 분리
+    .map((part, index) => {
+      // 홀수 인덱스는 코드 블록/인라인 코드이므로 이스케이프하지 않음
+      if (index % 2 === 1) return part;
+      // 짝수 인덱스는 일반 텍스트이므로 중괄호 이스케이프
+      return part.replace(/\{/g, '\\{').replace(/\}/g, '\\}');
+    })
+    .join('');
 
   return {
     markdown: escapedMarkdown,
