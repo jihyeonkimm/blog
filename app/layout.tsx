@@ -63,6 +63,10 @@ export default function RootLayout({
           crossOrigin=""
           href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css"
         />
+        <meta
+          name="google-site-verification"
+          content="do9CEedZghuSy8YKHX_YRJeC35sEnmCsKKcZe2-fYL0"
+        />
       </head>
       <body className="font-pretendard antialiased">
         <Providers>
