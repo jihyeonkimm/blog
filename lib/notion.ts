@@ -2,6 +2,7 @@ import { Client } from '@notionhq/client';
 import { Post, TagFilterItem } from '@/types/blog';
 import { PageObjectResponse } from '@notionhq/client/build/src/api-endpoints';
 import { NotionToMarkdown } from 'notion-to-md';
+import { notFound } from 'next/navigation';
 
 export const notion = new Client({
   auth: process.env.NOTION_TOKEN,
@@ -64,9 +65,7 @@ function getPostMetadata(page: PageObjectResponse): Post {
   };
 }
 
-export const getPostBySlug = async (
-  slug: string
-): Promise<{ markdown: string; post: Post | null }> => {
+export const getPostBySlug = async (slug: string): Promise<{ markdown: string; post: Post }> => {
   const response = await notion.dataSources.query({
     data_source_id: process.env.NOTION_DATASOURCE_ID!,
     filter: {
@@ -88,10 +87,7 @@ export const getPostBySlug = async (
   });
 
   if (!response.results[0]) {
-    return {
-      markdown: '',
-      post: null,
-    };
+    notFound();
   }
 
   const mdBlocks = await n2m.pageToMarkdown(response.results[0].id);
