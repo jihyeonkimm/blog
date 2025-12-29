@@ -8,6 +8,7 @@ import rehypeRaw from 'rehype-raw';
 import Image, { ImageProps } from 'next/image';
 import GiscusComments from '@/components/comments/GiscusComments';
 import { Metadata } from 'next';
+import { notFound } from 'next/navigation';
 
 interface BlogPostPageProps {
   params: Promise<{ slug: string }>;
@@ -52,6 +53,10 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
   const { slug } = await params;
   const { post, markdown } = await getPostBySlug(slug);
 
+  if (!post) {
+    return notFound();
+  }
+
   return (
     <div className="container py-12">
       <div className="max-w-[820px] mx-auto px-0 md:px-4">
@@ -83,7 +88,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
               </div>
             </div>
 
-            <div className="prose prose-sm prose-stone w-full max-w-full">
+            <div className="prose prose-md prose-zinc w-full max-w-full">
               <MDXRemote
                 source={markdown}
                 components={{
@@ -115,7 +120,9 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
                 }}
               />
 
-              <GiscusComments />
+              <div className="mt-16">
+                <GiscusComments />
+              </div>
             </div>
           </div>
         </section>

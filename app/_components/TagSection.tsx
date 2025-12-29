@@ -36,7 +36,7 @@ const TagSection = ({ tags, selectedTag }: TagSectionProps) => {
       <CardContent
         className={`lg:px-6 px-4 lg:py-0 py-3 flex lg:flex-col flex-row lg:items-start items-center gap-3 lg:gap-0 bg-white lg:shadow-none ${tagSticky ? 'shadow-sm' : 'shadow-none'}`}
       >
-        <strong className="shrink-0">Tag</strong>
+        <strong className="shrink-0 text-xs">Tag</strong>
         <div className="flex lg:flex-col flex-row gap-3 lg:w-full lg:mt-6 overflow-x-auto">
           {tags.map((tag) => (
             <Link href={`?tag=${tag.name}`} key={tag.name}>

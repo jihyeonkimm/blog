@@ -75,7 +75,7 @@ export default function RootLayout({
             <Header />
 
             {/* Main 영역 */}
-            <main className="flex-1">{children}</main>
+            <main className="flex flex-1">{children}</main>
 
             <Footer />
           </div>
