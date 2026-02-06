@@ -37,19 +37,19 @@ const TagSection = ({ tags, selectedTag }: TagSectionProps) => {
         className={`lg:px-6 px-4 lg:py-0 py-3 flex lg:flex-col flex-row lg:items-start items-center gap-3 lg:gap-0 bg-white lg:shadow-none ${tagSticky ? 'shadow-sm' : 'shadow-none'}`}
       >
         <strong className="shrink-0 text-xs">Tag</strong>
-        <div className="flex lg:flex-col flex-row gap-3 lg:w-full lg:mt-6 overflow-x-auto">
+        <div className="flex flex-row lg:flex-wrap flex-nowrap gap-2 lg:w-full lg:mt-6 overflow-x-auto">
           {tags.map((tag) => (
             <Link href={`?tag=${tag.name}`} key={tag.name}>
               <div
                 className={clsx(
-                  'flex items-center justify-between rounded-md p-2 text-sm transition-colors',
+                  'flex items-center rounded-full px-3 py-2 text-sm transition-colors',
                   selectedTag === tag.name
-                    ? 'bg-primary text-primary-foreground'
-                    : 'text-muted-foreground hover:bg-muted-foreground/10 bg-muted-foreground/5'
+                    ? 'text-primary-foreground bg-primary'
+                    : 'text-muted-foreground bg-muted-foreground/5 hover:bg-muted-foreground/10'
                 )}
               >
-                <span className="whitespace-nowrap font-bold">{tag.name}</span>
-                <span className="lg:block hidden font-bold">{tag.count}</span>
+                <span className="whitespace-nowrap">{tag.name}</span>
+                {/* <span className="lg:block hidden font-bold text-center">{tag.count}</span> */}
               </div>
             </Link>
           ))}
