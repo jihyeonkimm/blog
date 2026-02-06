@@ -26,7 +26,7 @@ export default async function Home({ searchParams }: HomeProps) {
 
   return (
     <div className="container lg:px-4 px-0! lg:py-8 py-4">
-      <div className="relative grid lg:grid-cols-[220px_1fr_0px] gap-6">
+      <div className="relative grid lg:grid-cols-[220px_1fr_0px] gap-8">
         {/* 좌측 사이드바 */}
         <aside className="lg:static sticky lg:top-auto top-14.25 order-1 max-w-full overflow-x-hidden overflow-y-visible z-1">
           <TagSection tags={tags} selectedTag={selectedTag} />

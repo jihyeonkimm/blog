@@ -111,6 +111,13 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
                       {children}
                     </blockquote>
                   ),
+                  ul: ({ children }) => (
+                    <ul className="not-prose list-disc pl-4 my-2 space-y-2">{children}</ul>
+                  ),
+                  li: ({ children }) => (
+                    <li className="not-prose leading-relaxed mb-2">{children}</li>
+                  ),
+                  hr: () => <hr className="not-prose my-3" />,
                 }}
                 options={{
                   mdxOptions: {
