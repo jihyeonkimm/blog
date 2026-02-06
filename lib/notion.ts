@@ -4,6 +4,20 @@ import { PageObjectResponse } from '@notionhq/client/build/src/api-endpoints';
 import { NotionToMarkdown } from 'notion-to-md';
 import { notFound } from 'next/navigation';
 
+interface getPublishedPostParams {
+  tag?: string;
+  sort?: string;
+  pageSize?: number;
+  startCursor?: string;
+  category?: string;
+}
+
+export interface getPublishedPostResponse {
+  posts: Post[];
+  hasMore: boolean;
+  nextCursor: string | null;
+}
+
 export const notion = new Client({
   auth: process.env.NOTION_TOKEN,
 });
@@ -16,7 +30,7 @@ const n2m = new NotionToMarkdown({
   },
 });
 
-function getPostMetadata(page: PageObjectResponse): Post {
+export const getPostMetadata = (page: PageObjectResponse): Post => {
   const { properties } = page;
 
   const getCoverImage = (cover: PageObjectResponse['cover']) => {
@@ -63,7 +77,7 @@ function getPostMetadata(page: PageObjectResponse): Post {
         ? properties.Category.select.name
         : '',
   };
-}
+};
 
 export const getPostBySlug = async (slug: string): Promise<{ markdown: string; post: Post }> => {
   const response = await notion.dataSources.query({
@@ -109,20 +123,6 @@ export const getPostBySlug = async (slug: string): Promise<{ markdown: string; p
     post: getPostMetadata(response.results[0] as PageObjectResponse),
   };
 };
-
-interface getPublishedPostParams {
-  tag?: string;
-  sort?: string;
-  pageSize?: number;
-  startCursor?: string;
-  category?: string;
-}
-
-export interface getPublishedPostResponse {
-  posts: Post[];
-  hasMore: boolean;
-  nextCursor: string | null;
-}
 
 export const getPublishedPosts = async ({
   tag = '전체',
@@ -206,4 +206,33 @@ export const getTags = async (): Promise<TagFilterItem[]> => {
   }));
 
   return [{ id: 'all', name: '전체', count: posts.length }, ...tags];
+};
+
+export const searchPosts = async (query: string): Promise<Post[]> => {
+  const response = await notion.search({
+    query: query,
+    filter: {
+      property: 'object',
+      value: 'page',
+    },
+    sort: {
+      direction: 'descending',
+      timestamp: 'last_edited_time',
+    },
+  });
+
+  const posts = response.results
+    .filter((page): page is PageObjectResponse => {
+      if (page.object !== 'page' || !('properties' in page)) return false;
+
+      const properties = page.properties;
+
+      if (properties.Status?.type === 'select' && properties.Status.select?.name === 'Published') {
+        return true;
+      }
+      return false;
+    })
+    .map(getPostMetadata);
+
+  return posts;
 };

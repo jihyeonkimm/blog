@@ -34,12 +34,12 @@ export async function generateMetadata({
     description: post.description || `${post.title} - Jihyeon Kim Blog`,
     keywords: post.tags,
     alternates: {
-      canonical: `/dev/${post.slug}`,
+      canonical: `/posts/${post.slug}`,
     },
     openGraph: {
       title: post.title,
       description: post.description,
-      url: `/dev/${post.slug}`,
+      url: `/posts/${post.slug}`,
       type: 'article',
       publishedTime: post.date,
       modifiedTime: post.modifiedDate,

@@ -55,8 +55,7 @@ blog/
 │   ├── api/                  # API Routes
 │   │   └── posts/           # 게시글 API
 │   ├── blog/[slug]/         # 블로그 상세 페이지
-│   ├── dev/                 # Dev 카테고리 페이지
-│   ├── life/                # Life 카테고리 페이지
+│   ├── posts/               # 포스트 카테고리 페이지
 │   └── _components/         # 페이지 컴포넌트
 ├── components/              # 공통 컴포넌트
 │   ├── features/           # 기능별 컴포넌트
