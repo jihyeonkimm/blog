@@ -12,7 +12,7 @@ export default function Footer() {
             <p className="text-muted-foreground text-xs">GitHub</p>
           </a>
         </div>
-        <p className="text-muted-foreground text-sm">©️ Jihyeon Kim 2025</p>
+        <p className="text-muted-foreground text-sm">©️ Jihyeon Kim 2026</p>
       </div>
     </footer>
   );
