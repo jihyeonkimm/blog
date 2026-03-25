@@ -71,7 +71,11 @@ export default function PostList({ postsPromise, category }: PostListProps) {
         {allPosts.length > 0 ? (
           allPosts.map((post, index) => (
             <Link href={`/${post.category || 'blog'}/${post.slug}`} key={post.id}>
-              <PostCard post={post} isFirst={index === 0} />
+              <PostCard
+                post={post}
+                isFirst={index === 0}
+                isLcpImage={post.coverImage != null && !allPosts.slice(0, index).some((p) => p.coverImage != null)}
+              />
             </Link>
           ))
         ) : (

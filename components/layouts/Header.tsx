@@ -7,7 +7,7 @@ export default function Header() {
     <header className="sticky top-0 z-50 border-b bg-background">
       <div className="container mx-auto flex h-14 justify-between items-center px-4 gap-4">
         <Link href="/" className="text-xl font-semibold flex-shrink-0">
-          <Image src="/assets/images/logo.png" alt="logo" width="30" height="30" />
+          <Image src="/assets/images/logo.png" alt="logo" width="30" height="30" priority />
         </Link>
         <SearchInput />
       </div>

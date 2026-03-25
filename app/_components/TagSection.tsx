@@ -44,8 +44,8 @@ const TagSection = ({ tags, selectedTag }: TagSectionProps) => {
                 className={clsx(
                   'flex items-center rounded-full px-3 py-2 text-sm transition-colors',
                   selectedTag === tag.name
-                    ? 'text-primary-foreground bg-primary'
-                    : 'text-muted-foreground bg-muted-foreground/5 hover:bg-muted-foreground/10'
+                    ? 'text-primary-foreground bg-primary font-bold'
+                    : 'text-muted-foreground bg-muted-foreground/5 hover:bg-muted-foreground/10 font-medium'
                 )}
               >
                 <span className="whitespace-nowrap">{tag.name}</span>

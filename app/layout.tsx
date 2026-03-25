@@ -59,10 +59,18 @@ export default function RootLayout({
     <html lang="ko">
       <head>
         <link
-          rel="stylesheet"
-          as="style"
-          crossOrigin=""
-          href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css"
+          rel="preload"
+          as="font"
+          type="font/woff2"
+          href="/assets/fonts/Pretendard-Regular.woff2"
+          crossOrigin="anonymous"
+        />
+        <link
+          rel="preload"
+          as="font"
+          type="font/woff2"
+          href="/assets/fonts/Pretendard-Bold.woff2"
+          crossOrigin="anonymous"
         />
         <meta
           name="google-site-verification"

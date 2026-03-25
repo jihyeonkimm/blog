@@ -9,9 +9,10 @@ import { formatDate } from '@/lib/date';
 interface PostCardProps {
   post: Post;
   isFirst?: boolean;
+  isLcpImage?: boolean;
 }
 
-export function PostCard({ post, isFirst }: PostCardProps) {
+export function PostCard({ post, isFirst, isLcpImage }: PostCardProps) {
   return (
     <Card
       className={`group bg-card/50 overflow-hidden backdrop-blur-sm transition-all duration-300 flex-row justify-between items-center rounded-none ${isFirst ? 'border-none' : 'border-t'}`}
@@ -51,7 +52,7 @@ export function PostCard({ post, isFirst }: PostCardProps) {
             alt={post.title}
             fill
             sizes="(max-width: 768px) 120px, 160px"
-            priority
+            priority={isLcpImage}
             className="object-cover transition-transform duration-300 group-hover:scale-105"
           />
         </div>
