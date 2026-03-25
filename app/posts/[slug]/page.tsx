@@ -88,7 +88,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
               </div>
             </div>
 
-            <div className="prose prose-md prose-zinc w-full max-w-full">
+            <div className="prose dark:prose-invert min-w-full break-keep break-words w-full max-w-full">
               <MDXRemote
                 source={markdown}
                 components={{
@@ -118,6 +118,17 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
                     <li className="not-prose leading-relaxed mb-2">{children}</li>
                   ),
                   hr: () => <hr className="not-prose my-3" />,
+                  a: ({ children, href, ...props }) => (
+                    <a
+                      href={href}
+                      className="underline text-(--muted-foreground) hover:opacity-70 transition-opacity"
+                      target={href?.startsWith('http') ? '_blank' : undefined}
+                      rel={href?.startsWith('http') ? 'noopener noreferrer' : undefined}
+                      {...props}
+                    >
+                      {children}
+                    </a>
+                  ),
                 }}
                 options={{
                   mdxOptions: {
