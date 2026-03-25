@@ -93,7 +93,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
                 source={markdown}
                 components={{
                   p: ({ children }) => {
-                    return <p className="not-prose relative leading-relaxed">{children}</p>;
+                    return <p className="not-prose relative leading-6 mb-2">{children}</p>;
                   },
                   br: () => <br className="my-2" />,
                   img: (props) => (
