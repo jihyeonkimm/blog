@@ -37,15 +37,8 @@ export function PostCard({ post, isFirst }: PostCardProps) {
           </p>
         )}
         <div className="text-muted-foreground mt-3 md:mt-6 flex items-center gap-x-4 text-sm">
-          {/* {post.author && (
-            <div className="flex items-center gap-1.5">
-              <User className="h-4 w-4" />
-              <span>{post.author}</span>
-            </div>
-          )} */}
           {post.date && (
             <div className="flex items-center gap-1.5">
-              {/* <Calendar className="h-4 w-4" /> */}
               <time className="text-xs">{formatDate(post.date)}</time>
             </div>
           )}
@@ -53,13 +46,12 @@ export function PostCard({ post, isFirst }: PostCardProps) {
       </CardContent>
       {post.coverImage && (
         <div className="relative shrink-0 md:w-40 w-30 overflow-hidden rounded-md aspect-3/2">
-          <div className="from-background/20 absolute inset-0 z-10 bg-gradient-to-t to-transparent" />
           <Image
             src={post.coverImage}
             alt={post.title}
             fill
-            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-            priority={isFirst}
+            sizes="(max-width: 768px) 120px, 160px"
+            priority
             className="object-cover transition-transform duration-300 group-hover:scale-105"
           />
         </div>
