@@ -9,7 +9,7 @@ Next.js와 Notion API를 활용한 개인 블로그입니다.
 - **태그 필터링**: 태그별로 게시글 필터링 및 카운트 표시
 - **정렬 기능**: 최신순/오래된순 정렬 지원
 - **무한 스크롤**: React Query와 Intersection Observer를 활용한 무한 스크롤 구현
-- **MDX 지원**: Markdown 렌더링 및 코드 하이라이팅 (Shiki)
+- **MDX 지원**: Markdown 렌더링 및 코드 하이라이팅
 - **댓글 기능**: Giscus를 활용한 GitHub 기반 댓글 시스템
 - **반응형 디자인**: 모바일/태블릿/데스크톱 환경 대응
 - **로딩 상태**: Skeleton UI를 활용한 부드러운 로딩 경험
@@ -38,7 +38,6 @@ Next.js와 Notion API를 활용한 개인 블로그입니다.
 
 - **MDX** - Markdown with JSX
 - **rehype-pretty-code** - 코드 하이라이팅
-- **Shiki** - 구문 강조 엔진
 - **remark-gfm** - GitHub Flavored Markdown
 
 ### Other
@@ -68,12 +67,6 @@ blog/
 ```
 
 ## 주요 기능 설명
-
-### 카테고리 필터링
-
-- `/dev`: Dev 카테고리 게시글만 표시
-- `/life`: Life 카테고리 게시글만 표시
-- `/`: 모든 게시글 표시
 
 ### 무한 스크롤
 
